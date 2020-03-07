@@ -286,74 +286,74 @@ function winner(winDetected, winCon) {
 function glowBoard(pos) {
     var index0 = pos[0];
     var index1 = pos[1];
-    var index2 = pos[3];
+    var index2 = pos[2];
     var squares = document.getElementsByClassName('square');
     for (var i = 0; i < squares.length; i++) {
         if (i == index0) {
             var bg1 = squares[i];
             blink();
             winSound();
-            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 179, 66)'; }, 100);
-            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 238, 66)'; }, 200);
-            setTimeout(function () { bg1.style.backgroundColor = 'rgb(197, 244, 66)'; }, 300);
-            setTimeout(function () { bg1.style.backgroundColor = 'rgb(122, 244, 66)'; }, 400);
-            setTimeout(function () { bg1.style.backgroundColor = 'rgb(66, 244, 235)'; }, 500);
-            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 179, 66)'; }, 600);
-            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 238, 66)'; }, 700);
-            setTimeout(function () { bg1.style.backgroundColor = 'rgb(197, 244, 66)'; }, 800);
-            setTimeout(function () { bg1.style.backgroundColor = 'rgb(122, 244, 66)'; }, 900);
-            setTimeout(function () { bg1.style.backgroundColor = 'rgb(66, 244, 235)'; }, 1000);
-            setTimeout(function () { bg1.style.backgroundColor = '#fd7f3f7'; }, 1100);
+            setTimeout(function() { bg1.style.backgroundColor = 'rgb(244, 179, 66)'; }, 100);
+            setTimeout(function() { bg1.style.backgroundColor = 'rgb(244, 238, 66)'; }, 200);
+            setTimeout(function() { bg1.style.backgroundColor = 'rgb(197, 244, 66)'; }, 300);
+            setTimeout(function() { bg1.style.backgroundColor = 'rgb(122, 244, 66)'; }, 400);
+            setTimeout(function() { bg1.style.backgroundColor = 'rgb(66, 244, 235)'; }, 500);
+            setTimeout(function() { bg1.style.backgroundColor = 'rgb(244, 179, 66)'; }, 600);
+            setTimeout(function() { bg1.style.backgroundColor = 'rgb(244, 238, 66)'; }, 700);
+            setTimeout(function() { bg1.style.backgroundColor = 'rgb(197, 244, 66)'; }, 800);
+            setTimeout(function() { bg1.style.backgroundColor = 'rgb(122, 244, 66)'; }, 900);
+            setTimeout(function() { bg1.style.backgroundColor = 'rgb(66, 244, 235)'; }, 1000);
+            setTimeout(function() { bg1.style.backgroundColor = '#fd7f3f7'; }, 1100);
         } else if (i == index1) {
             var bg2 = squares[i];
-            setTimeout(function () { bg2.style.backgroundColor = 'rgb(66, 244, 235)'; }, 100);
-            setTimeout(function () { bg2.style.backgroundColor = 'rgb(122, 244, 66)'; }, 200);
-            setTimeout(function () { bg2.style.backgroundColor = 'rgb(197, 244, 66)'; }, 300);
-            setTimeout(function () { bg2.style.backgroundColor = 'rgb(244, 238, 66)'; }, 400);
-            setTimeout(function () { bg2.style.backgroundColor = 'rgb(244, 179, 66)'; }, 500);
-            setTimeout(function () { bg2.style.backgroundColor = 'rgb(66, 244, 235)'; }, 600);
-            setTimeout(function () { bg2.style.backgroundColor = 'rgb(122, 244, 66)'; }, 700);
-            setTimeout(function () { bg2.style.backgroundColor = 'rgb(197, 244, 66)'; }, 800);
-            setTimeout(function () { bg2.style.backgroundColor = 'rgb(244, 238, 66)'; }, 900);
-            setTimeout(function () { bg2.style.backgroundColor = 'rgb(244, 179, 66)'; }, 1000);
-            setTimeout(function () { bg2.style.backgroundColor = '#fd7f3f7'; }, 1100);
+            setTimeout(function() { bg2.style.backgroundColor = 'rgb(66, 244, 235)'; }, 100);
+            setTimeout(function() { bg2.style.backgroundColor = 'rgb(122, 244, 66)'; }, 200);
+            setTimeout(function() { bg2.style.backgroundColor = 'rgb(197, 244, 66)'; }, 300);
+            setTimeout(function() { bg2.style.backgroundColor = 'rgb(244, 238, 66)'; }, 400);
+            setTimeout(function() { bg2.style.backgroundColor = 'rgb(244, 179, 66)'; }, 500);
+            setTimeout(function() { bg2.style.backgroundColor = 'rgb(66, 244, 235)'; }, 600);
+            setTimeout(function() { bg2.style.backgroundColor = 'rgb(122, 244, 66)'; }, 700);
+            setTimeout(function() { bg2.style.backgroundColor = 'rgb(197, 244, 66)'; }, 800);
+            setTimeout(function() { bg2.style.backgroundColor = 'rgb(244, 238, 66)'; }, 900);
+            setTimeout(function() { bg2.style.backgroundColor = 'rgb(244, 179, 66)'; }, 1000);
+            setTimeout(function() { bg2.style.backgroundColor = '#fd7f3f7'; }, 1100);
         } else if (i == index2) {
             var bg3 = squares[i];
-            setTimeout(function () { bg3.style.backgroundColor = 'rgb(244, 179, 66)'; }, 100);
-            setTimeout(function () { bg3.style.backgroundColor = 'rgb(244, 238, 66)'; }, 200);
-            setTimeout(function () { bg3.style.backgroundColor = 'rgb(197, 244, 66)'; }, 300);
-            setTimeout(function () { bg3.style.backgroundColor = 'rgb(122, 244, 66)'; }, 400);
-            setTimeout(function () { bg3.style.backgroundColor = 'rgb(66, 244, 235)'; }, 500);
-            setTimeout(function () { bg3.style.backgroundColor = 'rgb(244, 179, 66)'; }, 600);
-            setTimeout(function () { bg3.style.backgroundColor = 'rgb(244, 238, 66)'; }, 700);
-            setTimeout(function () { bg3.style.backgroundColor = 'rgb(197, 244, 66)'; }, 800);
-            setTimeout(function () { bg3.style.backgroundColor = 'rgb(122, 244, 66)'; }, 900);
-            setTimeout(function () { bg3.style.backgroundColor = 'rgb(66, 244, 235)'; }, 1000);
-            setTimeout(function () { bg3.style.backgroundColor = '#fd7f3f7'; }, 1100);
+            setTimeout(function() { bg3.style.backgroundColor = 'rgb(244, 179, 66)'; }, 100);
+            setTimeout(function() { bg3.style.backgroundColor = 'rgb(244, 238, 66)'; }, 200);
+            setTimeout(function() { bg3.style.backgroundColor = 'rgb(197, 244, 66)'; }, 300);
+            setTimeout(function() { bg3.style.backgroundColor = 'rgb(122, 244, 66)'; }, 400);
+            setTimeout(function() { bg3.style.backgroundColor = 'rgb(66, 244, 235)'; }, 500);
+            setTimeout(function() { bg3.style.backgroundColor = 'rgb(244, 179, 66)'; }, 600);
+            setTimeout(function() { bg3.style.backgroundColor = 'rgb(244, 238, 66)'; }, 700);
+            setTimeout(function() { bg3.style.backgroundColor = 'rgb(197, 244, 66)'; }, 800);
+            setTimeout(function() { bg3.style.backgroundColor = 'rgb(122, 244, 66)'; }, 900);
+            setTimeout(function() { bg3.style.backgroundColor = 'rgb(66, 244, 235)'; }, 1000);
+            setTimeout(function() { bg3.style.backgroundColor = '#fd7f3f7'; }, 1100);
         }
     }
-    setTimeout(function () { stopGame(); }, 1200);
+    setTimeout(function() { stopGame(); }, 1200);
 }
 
 //these functions will produce game sounds depending on the occasion
 function squareSound() {
     var sound = document.getElementById('placeAvatar');
     sound.play();
-    setTimeout(function () { sound.pause(); }, 400); // add delay to these to keep sound short
-    setTimeout(function () { sound.currentTime = 0; }, 500);
+    setTimeout(function() { sound.pause(); }, 400); // add delay to these to keep sound short
+    setTimeout(function() { sound.currentTime = 0; }, 500);
 }
 
 function tieSound() {
     var sound = document.getElementById("tieGame");
     var check = document / getElementById("gameMsg").innerHTML;
-    setTimeout(function () { sound.play(); }, 500);
+    setTimeout(function() { sound.play(); }, 500);
 }
 
 function winSound() {
     var sound = document.getElementById("winGame");
-    setTimeout(function () { sound.play(); }, 500);
-    setTimeout(function () { sound.pause(); }, 2700); //add delay to these to keep sound short
-    setTimeout(function () { sound.currentTime = 0; }, 2800);
+    setTimeout(function() { sound.play(); }, 500);
+    setTimeout(function() { sound.pause(); }, 2700); //add delay to these to keep sound short
+    setTimeout(function() { sound.currentTime = 0; }, 2800);
 }
 
 function diceRoll() {
@@ -365,17 +365,17 @@ function diceRoll() {
 // flash for a few seconds for a win animation
 function blink() {
     var body = document.getElementById('body');
-    setTimeout(function () { body.style.backgroundColor = '#94f7ed' }, 100);
-    setTimeout(function () { body.style.backgroundColor = '#94cef7' }, 200);
-    setTimeout(function () { body.style.backgroundColor = '#94a6f7' }, 300);
-    setTimeout(function () { body.style.backgroundColor = '#b094f7' }, 400);
-    setTimeout(function () { body.style.backgroundColor = '#cc94f7' }, 500);
-    setTimeout(function () { body.style.backgroundColor = '#e894f7' }, 600);
-    setTimeout(function () { body.style.backgroundColor = '#f794d9' }, 700);
-    setTimeout(function () { body.style.backgroundColor = '#f73881' }, 800);
-    setTimeout(function () { body.style.backgroundColor = '#c6034e' }, 900);
-    setTimeout(function () { body.style.backgroundColor = '#e00202' }, 1000);
-    setTimeout(function () { body.style.backgroundColor = '#ffffff' }, 1100);
+    setTimeout(function() { body.style.backgroundColor = '#94f7ed' }, 100);
+    setTimeout(function() { body.style.backgroundColor = '#94cef7' }, 200);
+    setTimeout(function() { body.style.backgroundColor = '#94a6f7' }, 300);
+    setTimeout(function() { body.style.backgroundColor = '#b094f7' }, 400);
+    setTimeout(function() { body.style.backgroundColor = '#cc94f7' }, 500);
+    setTimeout(function() { body.style.backgroundColor = '#e894f7' }, 600);
+    setTimeout(function() { body.style.backgroundColor = '#f794d9' }, 700);
+    setTimeout(function() { body.style.backgroundColor = '#f73881' }, 800);
+    setTimeout(function() { body.style.backgroundColor = '#c6034e' }, 900);
+    setTimeout(function() { body.style.backgroundColor = '#e00202' }, 1000);
+    setTimeout(function() { body.style.backgroundColor = '#ffffff' }, 1100);
 }
 
 //------------------------------------------------------------------------------
