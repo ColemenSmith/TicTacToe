@@ -83,7 +83,7 @@ function btnDisabled(btn) {
 }
 
 // this function styles the game buttons while they are disabled
-function stopEnable(btn) {
+function stopEnabled(btn) {
     btn.style.color = "#fff";
     btn.style.border = "2px solid rgb(204,0,0)";
     btn.style.backgroundColor = "rgb(255,51,51)";
@@ -101,7 +101,7 @@ function startEnabled(btn) {
 // when the user indicates, stop the current game and reset game
 function stopGame() {
     hideGameMsg(); // clear the text and hide message box
-    var btn = document.getElementsById('btnStart');
+    var btn = document.getElementById('btnStart');
     startEnabled(btn); //enable the start button since the game is now stopped
     var btn = document.getElementById('btnStop');
     btnDisabled(btn); // diable the stop button since the game is now stopped
@@ -197,11 +197,421 @@ function check(info, square) {
 // square has already been assigned and if it has not, record new square with the assigned avatar.
 function recordMoves(square) {
     var proposedMove = square;
-    var boardState = document.getElementsById('boardState').innerHTML; // retrieve board state array
+    var boardState = document.getElementById("boardState").innerHTML; // retrieve board state array
     var info = boardState.split(','); // separate the string by commas to create an array
     verdict = check(info, square); // call functoin to check if proposed square is already occupied
     return verdict;
 }
+
+// this function will get list of previous moves
+// and then concatenate the current move to it
+function recordMove(currentMove) {
+    var target = document.getElementById('boardState');
+    var previousMoves = target.innerHTML;
+    target.innerHTML = previousMoves + currentMove;
+}
+
+function checkForWinCon() {
+    var squareArray = [];
+    var target = document.getElementById('boardState');
+    var info = target.innerHTML; //raw array with squares and avatars
+    info = info.substring(1); //removes leading comma
+    info = info.split(','); // separate the string by ccommas into an array
+    info.sort(); // sort the square array in order despite the actual gameplay sequence
+    for (var i in info) {
+        squareArray.push(info[i].charAt(0)); // new array with only squares not avatars
+    }
+    // call this following array of functions to check for any of the possible win cons
+    checkWinCon1(info, squareArray);
+    checkWinCon2(info, squareArray);
+    checkWinCon3(info, squareArray);
+    checkWinCon4(info, squareArray);
+    checkWinCon5(info, squareArray);
+    checkWinCon6(info, squareArray);
+    checkWinCon7(info, squareArray);
+    checkWinCon8(info, squareArray);
+    // console.log("NEW CHECK: "+document.getElementById('gameMsg').innerHTML);
+    check4Tie();
+}
+
+//call this function to check board state for any ties and act accordingly
+function check4Tie() {
+    var boardState = document.getElementById('boardState').innerHTML;
+    boardState = boardState.substring(1); // removes leading comma
+    boardState = boardState.split(','); // separate the string by commas into an array
+    var check = document.getElementById('gameMsg').innerHTML;
+    if (boardState.length >= 9 && check != "That's three in a row, Player 1 wins!" && check != "That's three in a row, Player 2 wins!") {
+        var txt1 = "Oh no!, Nobody wins, it was a tie!";
+        tieSound();
+        writeMsg(txt1);
+        setTimeout(function () { stopGame(); }, 3000);
+    }
+}
+
+// whenever a win is detected the corresponding function will 
+// call this function to produce the following winning process for the game
+function winner(winDetected, winCon) {
+    if (winDetected == "win") {
+        var showme = winDetected;
+        var activePlayer = document.getElementById('showPlayer').innerHTML;
+        var txt2 = "That's three in a row, " + activePlayer + " wins!";
+        writeMsg(txt2);
+        var btn = document.getElementById('btnStart');
+        startEnabled(btn); // enable the start button since the game is now stopped
+        var btn = document.getElementById('btnStop');
+        btnDisabled(btn); // disable the stop button since the game is now stopped
+        document.getElementById('showPlayer').innerHTML = "Game Stopped";
+        glowBoard(winCon); // call function to make the gameboard pulse with colors
+    }
+}
+
+//this function will make the winnning squares light up in celebration
+function glowBoard(pos) {
+    var index0 = pos[0];
+    var index1 = pos[1];
+    var index3 = pos[3];
+    var squares = document.getElementsByClassName('square');
+    for (var i = 0; i < squares.length; i++) {
+        if (i == index0) {
+            var bg1 = squares[i];
+            blink();
+            winSound();
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 179, 66)'; }, 100);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 238, 66)'; }, 200);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(197, 244, 66)'; }, 300);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(122, 244, 66)'; }, 400);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(66, 244, 235)'; }, 500);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 179, 66)'; }, 600);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 238, 66)'; }, 700);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(197, 244, 66)'; }, 800);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(122, 244, 66)'; }, 900);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(66, 244, 235)'; }, 1000);
+            setTimeout(function () { bg1.style.backgroundColor = '#fd7f3f7'; }, 1100);
+        } else if (i == index1) {
+            var bg2 = squares[i];
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(66, 244, 235)'; }, 100);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(122, 244, 66)'; }, 200);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(197, 244, 66)'; }, 300);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 238, 66)'; }, 400);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 179, 66)'; }, 500);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(66, 244, 235)'; }, 600);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(122, 244, 66)'; }, 700);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(197, 244, 66)'; }, 800);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 238, 66)'; }, 900);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 179, 66)'; }, 1000);
+            setTimeout(function () { bg1.style.backgroundColor = '#fd7f3f7'; }, 1100);
+        } else if (i == index2) {
+            var bg3 = squares[i];
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 179, 66)'; }, 100);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 238, 66)'; }, 200);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(197, 244, 66)'; }, 300);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(122, 244, 66)'; }, 400);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(66, 244, 235)'; }, 500);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 179, 66)'; }, 600);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(244, 238, 66)'; }, 700);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(197, 244, 66)'; }, 800);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(122, 244, 66)'; }, 900);
+            setTimeout(function () { bg1.style.backgroundColor = 'rgb(66, 244, 235)'; }, 1000);
+            setTimeout(function () { bg1.style.backgroundColor = '#fd7f3f7'; }, 1100);
+        }
+    }
+    setTimeout(function () { stopGame(); }, 1200);
+}
+
+//these functions will produce game sounds depending on the occasion
+function squareSound() {
+    var sound = document.getElementById('placeAvatar');
+    sound.play();
+    setTimeout(function () { sound.pause(); }, 400); // add delay to these to keep sound short
+    setTimeout(function () { sound.currentTime = 0; }, 500);
+}
+
+function tieSound() {
+    var sound = document.getElementById("tieGame");
+    var check = document / getElementById("gameMsg").innerHTML;
+    setTimeout(function () { sound.play(); }, 500);
+}
+
+function winSound() {
+    var sound = document.getElementById("winGame");
+    setTimeout(function () { sound.play(); }, 500);
+    setTimeout(function () { sound.pause(); }, 2700); //add delay to these to keep sound short
+    setTimeout(function () { ssound.currentTime = 0; }, 2800);
+}
+
+function diceRoll() {
+    var sound = document.getElementById("diceRoll");
+    sound.play();
+}
+
+// call this function to make entire background color
+// flash for a few seconds for a win animation
+function blink() {
+    var body = document.getElementById('body');
+    setTimeout(function () { body.style.backgroundColor = '#94f7ed' }, 100);
+    setTimeout(function () { body.style.backgroundColor = '#94cef7' }, 200);
+    setTimeout(function () { body.style.backgroundColor = '#94a6f7' }, 300);
+    setTimeout(function () { body.style.backgroundColor = '#b094f7' }, 400);
+    setTimeout(function () { body.style.backgroundColor = '#cc94f7' }, 500);
+    setTimeout(function () { body.style.backgroundColor = '#e894f7' }, 600);
+    setTimeout(function () { body.style.backgroundColor = '#f794d9' }, 700);
+    setTimeout(function () { body.style.backgroundColor = '#f73881' }, 800);
+    setTimeout(function () { body.style.backgroundColor = '#c6034e' }, 900);
+    setTimeout(function () { body.style.backgroundColor = '#e00202' }, 1000);
+    setTimeout(function () { body.style.backgroundColor = '#ffffff' }, 1100);
+}
+
+//------------------------------------------------------------------------------
+// these functions are the algorithms to find all the win conditions
+//------------------------------------------------------------------------------
+// checking for wincon squares 012
+function checkWinCon1(info, squareArray) {
+    var winDetected = "on";
+    var winCon1 = [0, 1, 2];
+    // iterate through the grouwing array during
+    // gametime searching for the existence of 
+    // index 0, index 1, and index 2 and once they
+    // do appear in the array, record their
+    //avatars and compare all 3 for win con
+    for (var i in info) {
+        if (info[i].charAt(0) == "0") {
+            var match0Avatar = info[i].charAt(1); // only interested in recording the avatar
+        }
+        if (info[i].charAt(0) == "1") {
+            var match1Avatar = info[i].charAt(1);
+        }
+        if (info[i].charAt(0) == "2") {
+            var match2Avatar = info[i].charAt(1);
+        }
+    }
+    // this will trigger only if there was a match for index 0 1 and 2
+    if (match0Avatar != undefined && match1Avatar != undefined && match2Avatar != undefined) {
+        if (match0Avatar == match1Avatar && match0Avatar == match2Avatar) {
+            winDetected = "win"; // this flag will pass whena win has been deteccted
+            winner(winDetected, winCon1);
+            return;
+        }
+    }
+    winner(winDetected, winCon1); // wincon1 is the array of winb combo
+}
+
+// checking for wincon squares 345
+function checkWinCon2(info, squareArray) {
+    var winDetected = "on";
+    var winCon1 = [3, 4, 5];
+    // iterate through the grouwing array during
+    // gametime searching for the existence of 
+    // index 0, index 1, and index 2 and once they
+    // do appear in the array, record their
+    //avatars and compare all 3 for win con
+    for (var i in info) {
+        if (info[i].charAt(0) == "3") {
+            var match3Avatar = info[i].charAt(1); // only interested in recording the avatar
+        }
+        if (info[i].charAt(0) == "4") {
+            var match4Avatar = info[i].charAt(1);
+        }
+        if (info[i].charAt(0) == "5") {
+            var match5Avatar = info[i].charAt(1);
+        }
+    }
+    // this will trigger only if there was a match for index 0 1 and 2
+    if (match3Avatar != undefined && match4Avatar != undefined && match5Avatar != undefined) {
+        if (match3Avatar == match4Avatar && match3Avatar == match5Avatar) {
+            winDetected = "win"; // this flag will pass whena win has been deteccted
+            winner(winDetected, winCon2);
+            return;
+        }
+    }
+    winner(winDetected, winCon2); // wincon1 is the array of winb combo
+}
+
+// checking for wincon squares 678
+function checkWinCon3(info, squareArray) {
+    var winDetected = "on";
+    var winCon1 = [6, 7, 8];
+    // iterate through the grouwing array during
+    // gametime searching for the existence of 
+    // index 0, index 1, and index 2 and once they
+    // do appear in the array, record their
+    //avatars and compare all 3 for win con
+    for (var i in info) {
+        if (info[i].charAt(0) == "6") {
+            var match6Avatar = info[i].charAt(1); // only interested in recording the avatar
+        }
+        if (info[i].charAt(0) == "7") {
+            var match7Avatar = info[i].charAt(1);
+        }
+        if (info[i].charAt(0) == "8") {
+            var match8Avatar = info[i].charAt(1);
+        }
+    }
+    // this will trigger only if there was a match for index 0 1 and 2
+    if (match6Avatar != undefined && match7Avatar != undefined && match8Avatar != undefined) {
+        if (match6Avatar == match7Avatar && match6Avatar == match8Avatar) {
+            winDetected = "win"; // this flag will pass whena win has been deteccted
+            winner(winDetected, winCon3);
+            return;
+        }
+    }
+    winner(winDetected, winCon3); // wincon1 is the array of winb combo
+}
+
+// checking for wincon squares 036
+function checkWinCon4(info, squareArray) {
+    var winDetected = "on";
+    var winCon1 = [0, 3, 6];
+    // iterate through the grouwing array during
+    // gametime searching for the existence of 
+    // index 0, index 1, and index 2 and once they
+    // do appear in the array, record their
+    //avatars and compare all 3 for win con
+    for (var i in info) {
+        if (info[i].charAt(0) == "0") {
+            var match0Avatar = info[i].charAt(1); // only interested in recording the avatar
+        }
+        if (info[i].charAt(0) == "3") {
+            var match3Avatar = info[i].charAt(1);
+        }
+        if (info[i].charAt(0) == "6") {
+            var match6Avatar = info[i].charAt(1);
+        }
+    }
+    // this will trigger only if there was a match for index 0 1 and 2
+    if (match0Avatar != undefined && match3Avatar != undefined && match6Avatar != undefined) {
+        if (match0Avatar == match3Avatar && match0Avatar == match6Avatar) {
+            winDetected = "win"; // this flag will pass whena win has been deteccted
+            winner(winDetected, winCon4);
+            return;
+        }
+    }
+    winner(winDetected, winCon4); // wincon1 is the array of winb combo
+}
+
+// checking for wincon squares 147
+function checkWinCon5(info, squareArray) {
+    var winDetected = "on";
+    var winCon1 = [1, 4, 7];
+    // iterate through the grouwing array during
+    // gametime searching for the existence of 
+    // index 0, index 1, and index 2 and once they
+    // do appear in the array, record their
+    //avatars and compare all 3 for win con
+    for (var i in info) {
+        if (info[i].charAt(0) == "1") {
+            var match1Avatar = info[i].charAt(1); // only interested in recording the avatar
+        }
+        if (info[i].charAt(0) == "4") {
+            var match4Avatar = info[i].charAt(1);
+        }
+        if (info[i].charAt(0) == "7") {
+            var match7Avatar = info[i].charAt(1);
+        }
+    }
+    // this will trigger only if there was a match for index 0 1 and 2
+    if (match1Avatar != undefined && match4Avatar != undefined && match7Avatar != undefined) {
+        if (match1Avatar == match4Avatar && match1Avatar == match7Avatar) {
+            winDetected = "win"; // this flag will pass whena win has been deteccted
+            winner(winDetected, winCon5);
+            return;
+        }
+    }
+    winner(winDetected, winCon5); // wincon1 is the array of winb combo
+}
+
+// checking for wincon squares 258
+function checkWinCon6(info, squareArray) {
+    var winDetected = "on";
+    var winCon1 = [2, 5, 8];
+    // iterate through the grouwing array during
+    // gametime searching for the existence of 
+    // index 0, index 1, and index 2 and once they
+    // do appear in the array, record their
+    //avatars and compare all 3 for win con
+    for (var i in info) {
+        if (info[i].charAt(0) == "2") {
+            var match2Avatar = info[i].charAt(1); // only interested in recording the avatar
+        }
+        if (info[i].charAt(0) == "5") {
+            var match5Avatar = info[i].charAt(1);
+        }
+        if (info[i].charAt(0) == "8") {
+            var match8Avatar = info[i].charAt(1);
+        }
+    }
+    // this will trigger only if there was a match for index 0 1 and 2
+    if (match2Avatar != undefined && match5Avatar != undefined && match8Avatar != undefined) {
+        if (match2Avatar == match5Avatar && match2Avatar == match5Avatar) {
+            winDetected = "win"; // this flag will pass whena win has been deteccted
+            winner(winDetected, winCon6);
+            return;
+        }
+    }
+    winner(winDetected, winCon6); // wincon1 is the array of winb combo
+}
+
+// checking for wincon squares 048
+function checkWinCon7(info, squareArray) {
+    var winDetected = "on";
+    var winCon1 = [0, 4, 8];
+    // iterate through the grouwing array during
+    // gametime searching for the existence of 
+    // index 0, index 1, and index 2 and once they
+    // do appear in the array, record their
+    //avatars and compare all 3 for win con
+    for (var i in info) {
+        if (info[i].charAt(0) == "0") {
+            var match0Avatar = info[i].charAt(1); // only interested in recording the avatar
+        }
+        if (info[i].charAt(0) == "4") {
+            var match4Avatar = info[i].charAt(1);
+        }
+        if (info[i].charAt(0) == "8") {
+            var match8Avatar = info[i].charAt(1);
+        }
+    }
+    // this will trigger only if there was a match for index 0 1 and 2
+    if (match0Avatar != undefined && match4Avatar != undefined && match8Avatar != undefined) {
+        if (match0Avatar == match4Avatar && match0Avatar == match8Avatar) {
+            winDetected = "win"; // this flag will pass whena win has been deteccted
+            winner(winDetected, winCon7);
+            return;
+        }
+    }
+    winner(winDetected, winCon7); // wincon1 is the array of winb combo
+}
+
+// checking for wincon squares 246
+function checkWinCon8(info, squareArray) {
+    var winDetected = "on";
+    var winCon1 = [2, 4, 6];
+    // iterate through the grouwing array during
+    // gametime searching for the existence of 
+    // index 0, index 1, and index 2 and once they
+    // do appear in the array, record their
+    //avatars and compare all 3 for win con
+    for (var i in info) {
+        if (info[i].charAt(0) == "2") {
+            var match2Avatar = info[i].charAt(1); // only interested in recording the avatar
+        }
+        if (info[i].charAt(0) == "4") {
+            var match4Avatar = info[i].charAt(1);
+        }
+        if (info[i].charAt(0) == "6") {
+            var match6Avatar = info[i].charAt(1);
+        }
+    }
+    // this will trigger only if there was a match for index 0 1 and 2
+    if (match2Avatar != undefined && match4Avatar != undefined && match6Avatar != undefined) {
+        if (match2Avatar == match4Avatar && match2Avatar == match6Avatar) {
+            winDetected = "win"; // this flag will pass whena win has been deteccted
+            winner(winDetected, winCon8);
+            return;
+        }
+    }
+    winner(winDetected, winCon8); // wincon1 is the array of winb combo
+}
+
 
 //-----------------------------------------------------------------------------------------
 // These block of functions are for each clikc event of their corresponding square element
@@ -420,4 +830,14 @@ function square9Animate() {
             squareSound(); // play a game sound when the avatar is placed
         }
     }
+}
+
+// this function will perform the animation for the O avatar
+function animateO(selected) {
+    selected.style.transform = (selected.style.transform == "translateY(-100%)" || null) ? "translateY(0)" : "translateY(-100%)";
+}
+
+// this function will perform the animation for the X avatar
+function animateX(selected) {
+    selected.style.transform = (selected.style.transform == "translateY(100%)" || null) ? "translateY(0)" : "translateY(100%)";
 }
